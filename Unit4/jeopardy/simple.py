@@ -4,13 +4,20 @@ import sqlite3
 
 connection=sqlite3.connect("jeopardy.db")
 
-print (connection)
-
 cursor=connection.cursor()
 
-cursor.execute("select text from clue limit 10")
+cursor.execute("select text,answer,value from clue limit 10")
 
-for category in cursor.fetchall():
-	print (category[0])
+results=cursor.fetchall()
+
+for clue in results:
+  text=clue[0]
+  answer=clue[1]
+  value=clue[2]
+
+  print("[$%s]" % (value,))
+  print("Question: %s" % (text,))
+  print("Answer: What is '%s'?" % (answer,))
+  print("")
 
 connection.close()
